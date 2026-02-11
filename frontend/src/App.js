@@ -5,6 +5,8 @@ import ChatPanel from './components/ChatPanel';
 import DifficultySlider from './components/DifficultySlider';
 import ImageUploader from './components/ImageUploader';
 import WhatIfMode from './components/WhatIfMode';
+import FeaturesPage from './components/FeaturesPage';
+import HowItWorksPage from './components/HowItWorksPage';
 import { analyzeImage, askFollowUp, askWhatIf } from './services/api';
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [whatIfMode, setWhatIfMode] = useState(false);
   const [components, setComponents] = useState([]);
+  const [currentPage, setCurrentPage] = useState('home');
 
   const difficultyLabels = ['Novice', 'Beginner', 'Intermediate', 'Advanced', 'Expert'];
 
@@ -125,7 +128,13 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header onNavigate={setCurrentPage} currentPage={currentPage} />
+      
+      {currentPage === 'features' ? (
+        <FeaturesPage onBack={() => setCurrentPage('home')} />
+      ) : currentPage === 'how-it-works' ? (
+        <HowItWorksPage onBack={() => setCurrentPage('home')} />
+      ) : (
       
       <main className="flex-1 container mx-auto px-4 py-6">
         {!image ? (
@@ -184,6 +193,7 @@ function App() {
           </div>
         )}
       </main>
+      )}
     </div>
   );
 }

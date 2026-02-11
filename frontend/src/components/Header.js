@@ -1,12 +1,15 @@
 import React from 'react';
 import { Brain, Sparkles } from 'lucide-react';
 
-const Header = () => {
+const Header = ({ onNavigate, currentPage }) => {
   return (
     <header className="glass border-b border-primary-500/20">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div 
+            className="flex items-center gap-3 cursor-pointer" 
+            onClick={() => onNavigate && onNavigate('home')}
+          >
             <div className="relative">
               <Brain className="w-10 h-10 text-primary-400" />
               <Sparkles className="w-4 h-4 text-accent-400 absolute -top-1 -right-1 animate-pulse" />
@@ -18,12 +21,18 @@ const Header = () => {
           </div>
           
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#features" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
+            <button 
+              onClick={() => onNavigate && onNavigate('features')} 
+              className={`text-sm transition-colors ${currentPage === 'features' ? 'text-primary-400 font-medium' : 'text-gray-300 hover:text-primary-400'}`}
+            >
               Features
-            </a>
-            <a href="#how-it-works" className="text-gray-300 hover:text-primary-400 transition-colors text-sm">
+            </button>
+            <button 
+              onClick={() => onNavigate && onNavigate('how-it-works')} 
+              className={`text-sm transition-colors ${currentPage === 'how-it-works' ? 'text-primary-400 font-medium' : 'text-gray-300 hover:text-primary-400'}`}
+            >
               How It Works
-            </a>
+            </button>
             <a 
               href="https://github.com" 
               target="_blank" 
